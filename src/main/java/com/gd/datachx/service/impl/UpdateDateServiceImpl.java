@@ -52,6 +52,12 @@ public class UpdateDateServiceImpl implements UpdateDateService {
     @Autowired
     private TImBranchStockMapper tImBranchStockMapper;
 
+    @Autowired
+    private TRmVipSavelistMapper tRmVipSavelistMapper;
+
+    @Autowired
+    private TRmVipAcclistMapper tRmVipAcclistMapper;
+
     private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     private static Date rechargeRecordDate = null;
@@ -144,18 +150,18 @@ public class UpdateDateServiceImpl implements UpdateDateService {
 
     @Override
     public String queryVisaFlow() {
-//        List<TVisaFlow> visaFlows= tVisaFlowMapper.selectVisaFlows(rechargeRecordDate);
-////        JSONArray tVisaFlows = new JSONArray();
-////        for (TVisaFlow tVisaFlow : visaFlows) {
-////            JSONArray visaFlow = new JSONArray();
-////            visaFlow.add(tVisaFlow.getUpdateFlow().toString());
-////            visaFlow.add(tVisaFlow.getSubAmt().doubleValue());
-////            visaFlow.add(simpleDateFormat.format(tVisaFlow.getOperDate()));
-////            rechargeRecordDate = tVisaFlow.getOperDate();
-////            tVisaFlows.add(visaFlow);
-////        }
-////        return JSONObject.toJSONString(tVisaFlows);
-        return null;
+        List<TRmVipSavelist> visaFlows= tRmVipSavelistMapper.selectVisaFlows(rechargeRecordDate);
+        JSONArray tVisaFlows = new JSONArray();
+        for (TRmVipSavelist tVisaFlow : visaFlows) {
+            JSONArray visaFlow = new JSONArray();
+            visaFlow.add(tVisaFlow.getFlowId().toString());
+            visaFlow.add(tVisaFlow.getConsumAmt().doubleValue());
+            visaFlow.add(simpleDateFormat.format(tVisaFlow.getOpeDate()));
+            visaFlow.add(tVisaFlow.getBranchNo());
+            rechargeRecordDate = tVisaFlow.getOpeDate();
+            tVisaFlows.add(visaFlow);
+        }
+        return JSONObject.toJSONString(tVisaFlows);
     }
 
     @Override
@@ -185,19 +191,19 @@ public class UpdateDateServiceImpl implements UpdateDateService {
 
     @Override
     public String queryCardPaylist() {
-//        List<TVipFlow> tVipFlowList = tVipFlowMapper.selectCarPayList(carPayDate);
-//        JSONArray tVipFlows = new JSONArray();
-//        for (TVipFlow tVipFlow : tVipFlowList) {
-//            JSONArray vipFlow = new JSONArray();
-//            vipFlow.add(tVipFlow.getUpdateFlow().toString());
-//            vipFlow.add(tVipFlow.getVipDispno());
-//            vipFlow.add(tVipFlow.getSalesAmt());
-//            vipFlow.add(simpleDateFormat.format(tVipFlow.getOperDate()));
-//            carPayDate = tVipFlow.getOperDate();
-//            tVipFlows.add(vipFlow);
-//        }
-//        return JSONObject.toJSONString(tVipFlows);
-        return null;
+        List<TRmVipAcclist> tVipFlowList = tRmVipAcclistMapper.selectCarPayList(carPayDate);
+        JSONArray tVipFlows = new JSONArray();
+        for (TRmVipAcclist tVipFlow : tVipFlowList) {
+            JSONArray vipFlow = new JSONArray();
+            vipFlow.add(tVipFlow.getFlowId().toString());
+            vipFlow.add(tVipFlow.getCardNo());
+            vipFlow.add(tVipFlow.getConsumAmt().doubleValue());
+            vipFlow.add(simpleDateFormat.format(tVipFlow.getOpeDate()));
+            vipFlow.add(tVipFlow.getBranchNo());
+            carPayDate = tVipFlow.getOpeDate();
+            tVipFlows.add(vipFlow);
+        }
+        return JSONObject.toJSONString(tVipFlows);
     }
 
     @Override

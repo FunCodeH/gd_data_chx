@@ -103,12 +103,12 @@ public class ScheduledTasks {
     @Scheduled(initialDelay = 13000,fixedDelay = 60000)
     @Async
     public void updateModeRechargeRecord() {
-//        String rechargeRecords= updateDateService.queryVisaFlow();
-//        logger.info("查询到rechargeRecords结果:{}", JSONObject.toJSONString(rechargeRecords));
-//        if(rechargeRecords.length() > 2) {
-//            String result = HttpTools.sendPost(updateModeRechargeRecordUrl, rechargeRecords, token);
-//            logger.info("发送rechargeRecords post结果:{}", result);
-//        }
+        String rechargeRecords= updateDateService.queryVisaFlow();
+        logger.info("查询到rechargeRecords结果:{}", JSONObject.toJSONString(rechargeRecords));
+        if(rechargeRecords.length() > 2) {
+            String result = HttpTools.sendPost(updateModeRechargeRecordUrl, rechargeRecords, token);
+            logger.info("发送rechargeRecords post结果:{}", result);
+        }
     }
     @Scheduled(initialDelay = 15000,fixedDelay = 60000)
     @Async
@@ -124,12 +124,12 @@ public class ScheduledTasks {
     @Scheduled(initialDelay = 17000,fixedDelay = 60000)
     @Async
     public void updateModeCardPaylist() {
-//        String  modeCardPaylist= updateDateService.queryCardPaylist();
-//        logger.info("查询到updateModeCardPaylist结果:{}", JSONObject.toJSONString(modeCardPaylist));
-//        if(modeCardPaylist.length() > 2) {
-//            String result = HttpTools.sendPost(updateModeCardPaylistUrl, modeCardPaylist, token);
-//            logger.info("发送updateModeCardPaylist post结果:{}", result);
-//        }
+        String  modeCardPaylist= updateDateService.queryCardPaylist();
+        logger.info("查询到updateModeCardPaylist结果:{}", JSONObject.toJSONString(modeCardPaylist));
+        if(modeCardPaylist.length() > 2) {
+            String result = HttpTools.sendPost(updateModeCardPaylistUrl, modeCardPaylist, token);
+            logger.info("发送updateModeCardPaylist post结果:{}", result);
+        }
     }
 
     @Scheduled(initialDelay = 19000,fixedDelay = 60000)
