@@ -31,4 +31,6 @@ public interface UpdateDateService {
     String queryItemStock();
 
     String queryOrderDetail();
+
+    String queryBranchInfoList();
 }
