@@ -117,6 +117,10 @@ public class UpdateDateServiceImpl implements UpdateDateService {
             saleMan.add(user.getSaleName());
             saleMans.add(saleMan);
         }
+        JSONArray saleMan = new JSONArray();
+        saleMan.add("9999");
+        saleMan.add("默认营业员");
+        saleMans.add(saleMan);
         return JSONObject.toJSONString(saleMans);
     }
 
