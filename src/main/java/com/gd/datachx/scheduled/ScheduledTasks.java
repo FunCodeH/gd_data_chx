@@ -47,7 +47,7 @@ public class ScheduledTasks {
     /**
      * Cashier
      */
-    @Scheduled(initialDelay = 5000,fixedDelay = 60000)
+    @Scheduled(initialDelay = 5000,fixedDelay = 180000)
     @Async
     public void updateModeCashier() {
         String cashierList = updateDateService.queryCashierList();
@@ -56,7 +56,7 @@ public class ScheduledTasks {
         logger.info("发送Cashier post结果:{}", result);
     }
 
-    @Scheduled(initialDelay = 7000,fixedDelay = 60000)
+    @Scheduled(initialDelay = 7000,fixedDelay = 180000)
     @Async
     public void updateItemBrand() {
         String brands = updateDateService.queryBrandList();
@@ -64,7 +64,7 @@ public class ScheduledTasks {
         String result = HttpTools.sendPost(updateItemBrandUrl, brands, token);
         logger.info("发送brands post结果:{}", result);
     }
-    @Scheduled(initialDelay = 9000,fixedDelay = 60000)
+    @Scheduled(initialDelay = 9000,fixedDelay = 180000)
     @Async
     public void updateIModeItemCls() {
         String itemCls = updateDateService.queryModeItemCls();
@@ -73,7 +73,7 @@ public class ScheduledTasks {
         logger.info("发送ItemCls post结果:{}", result);
     }
 
-    @Scheduled(initialDelay = 9000,fixedDelay = 60000)
+    @Scheduled(initialDelay = 9000,fixedDelay = 180000)
     @Async
     public void updateSaleMans() {
         String saleManList = updateDateService.queryModeSaleMan();
@@ -82,7 +82,7 @@ public class ScheduledTasks {
         logger.info("发送saleManList post结果:{}", result);
     }
 
-    @Scheduled(initialDelay = 11000,fixedDelay = 60000)
+    @Scheduled(initialDelay = 11000,fixedDelay = 180000)
     @Async
     public void updateSupcus() {
         String supcustInfo = updateDateService.querySupcustInfo();
@@ -91,7 +91,7 @@ public class ScheduledTasks {
         logger.info("发送supcustInfo post结果:{}", result);
     }
 
-    @Scheduled(initialDelay = 13000,fixedDelay = 60000)
+    @Scheduled(initialDelay = 13000,fixedDelay = 180000)
     @Async
     public void updateModePaymentInfo() {
         String  paymentInfos= updateDateService.queryDataPayment();
@@ -100,7 +100,7 @@ public class ScheduledTasks {
         logger.info("发送paymentInfos post结果:{}", result);
     }
 
-    @Scheduled(initialDelay = 13000,fixedDelay = 60000)
+    @Scheduled(initialDelay = 13000,fixedDelay = 180000)
     @Async
     public void updateModeRechargeRecord() {
         String rechargeRecords= updateDateService.queryVisaFlow();
@@ -110,18 +110,18 @@ public class ScheduledTasks {
             logger.info("发送rechargeRecords post结果:{}", result);
         }
     }
-    @Scheduled(initialDelay = 15000,fixedDelay = 60000)
+    @Scheduled(initialDelay = 15000,fixedDelay = 180000)
     @Async
     public void updateModeSaleFlow() {
-//        String  updateModeSales= updateDateService.querySaleDetail();
-//        logger.info("查询到updateModeSales结果:{}", JSONObject.toJSONString(updateModeSales));
-//        if(updateModeSales.length() > 2) {
-//            String result = HttpTools.sendPost(updateModeSaleFlowUrl, updateModeSales, token);
-//            logger.info("发送updateModeSales post结果:{}", result);
-//        }
+        String  updateModeSales= updateDateService.querySaleDetail();
+        logger.info("查询到updateModeSales结果:{}", JSONObject.toJSONString(updateModeSales));
+        if(updateModeSales.length() > 2) {
+            String result = HttpTools.sendPost(updateModeSaleFlowUrl, updateModeSales, token);
+            logger.info("发送updateModeSales post结果:{}", result);
+        }
     }
 
-    @Scheduled(initialDelay = 17000,fixedDelay = 60000)
+    @Scheduled(initialDelay = 17000,fixedDelay = 180000)
     @Async
     public void updateModeCardPaylist() {
         String  modeCardPaylist= updateDateService.queryCardPaylist();
@@ -132,7 +132,7 @@ public class ScheduledTasks {
         }
     }
 
-    @Scheduled(initialDelay = 19000,fixedDelay = 60000)
+    @Scheduled(initialDelay = 19000,fixedDelay = 180000)
     @Async
     public void updateModeVipInfo() {
         String  vipInfos= updateDateService.queryVipInfo();
@@ -141,7 +141,7 @@ public class ScheduledTasks {
         logger.info("发送vipInfoss post结果:{}", result);
     }
 
-    @Scheduled(initialDelay = 21000,fixedDelay = 60000)
+    @Scheduled(initialDelay = 21000,fixedDelay = 180000)
     @Async
     public void updateModeItemInfo() {
         String  itemInfo= updateDateService.queryItemInfo();
@@ -152,7 +152,7 @@ public class ScheduledTasks {
         }
     }
 
-    @Scheduled(initialDelay = 21000,fixedDelay = 60000)
+    @Scheduled(initialDelay = 21000,fixedDelay = 180000)
     @Async
     public void updateModeItemStock() {
         String  itemStocks= updateDateService.queryItemStock();
@@ -161,18 +161,18 @@ public class ScheduledTasks {
         logger.info("发送itemStocks post结果:{}", result);
     }
 
-    @Scheduled(initialDelay = 21000,fixedDelay = 60000)
+    @Scheduled(initialDelay = 21000,fixedDelay = 180000)
     @Async
     public void updateModePayFlow() {
-//        String  orderDetail= updateDateService.queryOrderDetail();
-//        logger.info("查询到orderDetail结果:{}", JSONObject.toJSONString(orderDetail));
-//        if(orderDetail.length() > 2) {
-//            String result = HttpTools.sendPost(updateModePayFlowUrl, orderDetail, token);
-//            logger.info("发送orderDetail post结果:{}", result);
-//        }
+        String  orderDetail= updateDateService.queryOrderDetail();
+        logger.info("查询到orderDetail结果:{}", JSONObject.toJSONString(orderDetail));
+        if(orderDetail.length() > 2) {
+            String result = HttpTools.sendPost(updateModePayFlowUrl, orderDetail, token);
+            logger.info("发送orderDetail post结果:{}", result);
+        }
     }
 
-    @Scheduled(initialDelay = 23000,fixedDelay = 60000)
+    @Scheduled(initialDelay = 23000,fixedDelay = 180000)
     @Async
     public void updateBranchInfo() {
         String  branchInfoList= updateDateService.queryBranchInfoList();

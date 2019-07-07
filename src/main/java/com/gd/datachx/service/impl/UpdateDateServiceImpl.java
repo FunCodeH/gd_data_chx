@@ -58,6 +58,11 @@ public class UpdateDateServiceImpl implements UpdateDateService {
     @Autowired
     private TRmVipAcclistMapper tRmVipAcclistMapper;
 
+    @Autowired
+    private TRmPayflowMapper tRmPayflowMapper;
+
+    @Autowired
+    private TRmSaleflowMapper tRmSaleflowMapper;
     private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     private static Date rechargeRecordDate = null;
@@ -170,27 +175,35 @@ public class UpdateDateServiceImpl implements UpdateDateService {
 
     @Override
     public String querySaleDetail() {
-//        List<TPosSale> tPosSales = tPosSaleMasterMapper.selectSaleDetail(saleDetailDate);
-//        JSONArray posSales = new JSONArray();
-//        for (TPosSale tPosSale : tPosSales) {
-//            JSONArray posSale = new JSONArray();
-//            posSale.add(tPosSale.getId());
-//            posSale.add("0");
-//            posSale.add(simpleDateFormat.format(tPosSale.getSaleTime()));
-//            posSale.add(tPosSale.getSaleAmt().doubleValue());
-//            posSale.add(tPosSale.getSaleQty().doubleValue());
-//            posSale.add(tPosSale.getSheetNo());
-//            posSale.add(tPosSale.getSaleBarcode());
-//            posSale.add(tPosSale.getSaleMan());
-//            posSale.add(tPosSale.getJh());
-//            posSale.add(BigDecimal.ZERO.doubleValue());
-//            posSale.add(tPosSale.getUserId());
-//            posSale.add("A");
-//            saleDetailDate = tPosSale.getSaleTime();
-//            posSales.add(posSale);
-//        }
-//        return JSONObject.toJSONString(posSales);
-        return null;
+        List<TRmSaleFlowInfo> tPosSales = tRmSaleflowMapper.selectSaleDetail(saleDetailDate);
+        JSONArray posSales = new JSONArray();
+        for (TRmSaleFlowInfo tPosSale : tPosSales) {
+            JSONArray posSale = new JSONArray();
+            posSale.add(tPosSale.getComNo());
+            posSale.add("0");
+            posSale.add(simpleDateFormat.format(tPosSale.getOperDate()));
+            if(tPosSale.getSellWay().equals("A")) {
+                posSale.add(tPosSale.getSaleMoney().doubleValue());
+            }else if(tPosSale.getSellWay().equals("C")){
+                posSale.add(BigDecimal.ZERO.doubleValue());
+            }
+            posSale.add(tPosSale.getSaleQnty().doubleValue());
+            posSale.add(tPosSale.getFlowNo());
+            posSale.add(tPosSale.getItemNo());
+            posSale.add(tPosSale.getSaleMan());
+            posSale.add(tPosSale.getPosid());
+            if(tPosSale.getSellWay().equals("A")) {
+                posSale.add(BigDecimal.ZERO.doubleValue());
+            }else if(tPosSale.getSellWay().equals("C")){
+                posSale.add(tPosSale.getSourcePrice().doubleValue());
+            }
+            posSale.add(tPosSale.getOperId());
+            posSale.add(tPosSale.getSellWay());
+            posSale.add(tPosSale.getBranchNo());
+            saleDetailDate = tPosSale.getOperDate();
+            posSales.add(posSale);
+        }
+        return JSONObject.toJSONString(posSales);
     }
 
     @Override
@@ -270,25 +283,25 @@ public class UpdateDateServiceImpl implements UpdateDateService {
 
     @Override
     public String queryOrderDetail() {
-//        List<TOrderDetail> tOrderDetailList = tPosSaleMasterMapper.selectOrderDetail(orderDate);
-//        JSONArray tOrderDetails = new JSONArray();
-//        for (TOrderDetail detail : tOrderDetailList) {
-//            JSONArray tOrderDetail = new JSONArray();
-//            tOrderDetail.add(detail.getId());
-//            tOrderDetail.add(((detail.getId().substring(0,6))));
-//            tOrderDetail.add(detail.getId());
-//            tOrderDetail.add(detail.getPosTotalAmt().doubleValue());
-//            tOrderDetail.add(detail.getPaymentNo());
-//            tOrderDetail.add("A");
-//            tOrderDetail.add(simpleDateFormat.format(detail.getSaleTime()));
-//            tOrderDetail.add(detail.getPosTotalAmt().doubleValue());
-//            tOrderDetail.add(detail.getVipNo());
-//            tOrderDetail.add(detail.getDispNo());
-//            orderDate = detail.getSaleTime();
-//            tOrderDetails.add(tOrderDetail);
-//        }
-//        return JSONObject.toJSONString(tOrderDetails);
-        return null;
+        List<TRmPayflow> tOrderDetailList = tRmPayflowMapper.selectOrderDetail(orderDate);
+        JSONArray tOrderDetails = new JSONArray();
+        for (TRmPayflow detail : tOrderDetailList) {
+            JSONArray tOrderDetail = new JSONArray();
+            tOrderDetail.add(detail.getComNo());
+            tOrderDetail.add(detail.getFlowId());
+            tOrderDetail.add(detail.getFlowNo());
+            tOrderDetail.add(detail.getSaleAmount().doubleValue());
+            tOrderDetail.add(detail.getPayWay());
+            tOrderDetail.add(detail.getSellWay());
+            tOrderDetail.add(simpleDateFormat.format(detail.getOperDate()));
+            tOrderDetail.add(detail.getPayAmount().doubleValue());
+            tOrderDetail.add(detail.getVipNo());
+            tOrderDetail.add(detail.getCardNo());
+            tOrderDetail.add(detail.getBranchNo());
+            orderDate = detail.getOperDate();
+            tOrderDetails.add(tOrderDetail);
+        }
+        return JSONObject.toJSONString(tOrderDetails);
     }
 
     @Override
