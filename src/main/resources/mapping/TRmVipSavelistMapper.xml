@@ -188,10 +188,10 @@
     </trim>
   </insert>
   <select id="selectVisaFlows" resultMap="BaseResultMap">
-    SELECT flow_id, consum_amt, ope_date, branch_no FROM t_rm_vip_savelist WHERE t_rm_vip_savelist.oper_type = '4' or
+    SELECT flow_id, consum_amt, ope_date, branch_no FROM t_rm_vip_savelist WHERE (t_rm_vip_savelist.oper_type = '4' or
     t_rm_vip_savelist.oper_type = '6' or
     t_rm_vip_savelist.oper_type = 'G' or
-    t_rm_vip_savelist.oper_type = 'H'
+    t_rm_vip_savelist.oper_type = 'H')
     <if test="date != null">
       and ope_date > #{date,jdbcType=TIMESTAMP}
     </if>
