@@ -263,8 +263,8 @@
     a.sale_price as salePrice, a.cost_price as costPrice, a.sale_qnty as saleQnty,
     a.sale_money as saleMoney, a.sell_way as sellWay, a.oper_id as operId,
     a.sale_man as saleMan, a.oper_date as operDate ,
-    a.card_id as cardId, a.card_no as cardNo, b.counter_no as counterNo FROM t_rm_saleflow a, t_rm_payflow b
-    where a.flow_no = b.flow_no
+    a.card_id as cardId, a.card_no as cardNo, b.posid as posid FROM t_rm_saleflow a, t_sys_pos_status b
+    where left(a.flow_no, CHAR_LENGTH(b.posid)) = b.posid
     <if test="date != null">
       and a.oper_date >= #{date,jdbcType=TIMESTAMP}
     </if>
