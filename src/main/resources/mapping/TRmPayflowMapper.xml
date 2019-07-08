@@ -213,7 +213,7 @@
   <select id="selectOrderDetail" resultMap="BaseResultMap">
     SELECT com_no, flow_id, flow_no, sale_amount, branch_no, pay_way, sell_way, card_no, vip_no, oper_date, pay_amount FROM `t_rm_payflow` WHERE flow_no in (SELECT distinct flow_no FROM t_rm_saleflow)
     <if test="date != null">
-      and oper_date > #{date,jdbcType=TIMESTAMP}
+      and oper_date >= #{date,jdbcType=TIMESTAMP}
     </if>
     ORDER BY oper_date asc limit 100
   </select>

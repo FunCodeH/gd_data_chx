@@ -265,7 +265,7 @@
     a.sale_man as saleMan, a.oper_date as operDate ,
     a.card_id as cardId, a.card_no as cardNo, b.posid  as posid FROM t_rm_saleflow a, t_sys_pos_status b WHERE a.branch_no = b.hostip
     <if test="date != null">
-      and oper_date > #{date,jdbcType=TIMESTAMP}
+      and oper_date >= #{date,jdbcType=TIMESTAMP}
     </if>
     ORDER BY oper_date asc limit 100
   </select>

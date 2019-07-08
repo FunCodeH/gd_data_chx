@@ -193,7 +193,7 @@
     t_rm_vip_savelist.oper_type = 'G' or
     t_rm_vip_savelist.oper_type = 'H')
     <if test="date != null">
-      and ope_date > #{date,jdbcType=TIMESTAMP}
+      and ope_date >= #{date,jdbcType=TIMESTAMP}
     </if>
     ORDER BY ope_date asc limit 100
       </select>

@@ -144,7 +144,7 @@
   <select id="selectCarPayList" resultMap="BaseResultMap">
     SELECT flow_id, card_no, consum_amt, ope_date, branch_no FROM t_rm_vip_acclist WHERE t_rm_vip_acclist.oper_type = '0' or t_rm_vip_acclist.oper_type = 'F'
     <if test="date != null">
-      and ope_date > #{date,jdbcType=TIMESTAMP}
+      and ope_date >= #{date,jdbcType=TIMESTAMP}
     </if>
     ORDER BY ope_date asc limit 100
   </select>
